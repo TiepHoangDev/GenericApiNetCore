@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericApiNetCore.ClientLib
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericApiNetCore.ServerLib", "GenericApiNetCore.ServerLib\GenericApiNetCore.ServerLib.csproj", "{4B6CD8AB-3FC9-4288-B9EA-C8A67D2DFC6C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsAppTest", "WinFormsAppTest\WinFormsAppTest.csproj", "{EAAF8F32-0299-48F9-B4BB-537FBBFBA87C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{4B6CD8AB-3FC9-4288-B9EA-C8A67D2DFC6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B6CD8AB-3FC9-4288-B9EA-C8A67D2DFC6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B6CD8AB-3FC9-4288-B9EA-C8A67D2DFC6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAAF8F32-0299-48F9-B4BB-537FBBFBA87C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAAF8F32-0299-48F9-B4BB-537FBBFBA87C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAAF8F32-0299-48F9-B4BB-537FBBFBA87C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAAF8F32-0299-48F9-B4BB-537FBBFBA87C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
