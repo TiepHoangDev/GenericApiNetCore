@@ -1,3 +1,6 @@
+using GenericApiNetCore.Samples.Entities;
+using GenericApiNetCore.WebApi.Services;
+
 namespace GenericApiNetCore.WebApi
 {
     public class Program
@@ -12,6 +15,11 @@ namespace GenericApiNetCore.WebApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            //DI
+            builder.Services.AddSingleton<IRepositoryMethods<Product>, ProductRepositoryMethods>();
+            builder.Services.AddSingleton<IRepositoryMethods<Client>, ClientRepositoryMethods>();
+
 
             var app = builder.Build();
 

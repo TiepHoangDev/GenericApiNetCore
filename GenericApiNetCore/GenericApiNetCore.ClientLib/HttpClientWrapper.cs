@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GenericApiNetCore.ClientLib
 {
-    public class HttpClientWrapper
+    public class HttpClientWrapper : IDisposable
     {
         public virtual HttpRequestMessage CreateRequestMessage<T>(HttpMethod method, string? requestUri, T payload)
         {
@@ -20,14 +20,19 @@ namespace GenericApiNetCore.ClientLib
             return httpRequest;
         }
 
-        public virtual async Task<IApiResult<TResult>> ExecuteAsync<TPayload, TResult>(IApiRequest<TPayload, TResult> request)
+        public void Dispose()
+        {
+
+        }
+
+        public virtual async Task<IApiResult<TResult>> ExecuteAsync<TPayload, TResult>(IApiRequest<TPayload, TResult> request, Uri baseAddress)
         {
             //get url
-            var apiInfoRequestAtribute = request.GetType().GetCustomAttribute<ApiInfoRequestAtribute>(true) ?? throw new Exception($"Please use {nameof(ApiInfoRequestAtribute)} for {request.GetType().Name}");
-            var url = apiInfoRequestAtribute.ApiUrl;
+            var url = request.GetApiUrl();
 
             //prepare api
             using var httpClient = new HttpClient();
+            httpClient.BaseAddress = baseAddress;
             using var httpRequest = CreateRequestMessage(HttpMethod.Post, url, request);
 
             //execute api
@@ -37,8 +42,16 @@ namespace GenericApiNetCore.ClientLib
             try
             {
                 var body = await responseMessage.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<ApiResult<TResult>>(body)
-                    ?? throw new Exception($"{responseMessage.RequestMessage?.Method} {responseMessage.RequestMessage?.RequestUri} => {(int)responseMessage.StatusCode} {responseMessage.StatusCode} {body}");
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    };
+                    var apiResult = JsonSerializer.Deserialize<ApiResult<TResult>>(body, options);
+                    if (apiResult != null) return apiResult;
+                }
+                throw new Exception($"{responseMessage.RequestMessage?.Method} {responseMessage.RequestMessage?.RequestUri} => {(int)responseMessage.StatusCode} {responseMessage.StatusCode} {body}");
             }
             catch (Exception ex)
             {

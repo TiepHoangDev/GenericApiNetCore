@@ -6,11 +6,19 @@ using System.Threading.Tasks;
 /// </summary>
 public class ApiResultFactory
 {
-    public static IApiResult<T> FromSucess<T>(T data) 
-        => new ApiResult<T>(true, data, default); 
+    public static IApiResult<T> FromSucess<T>(T data) => new ApiResult<T>()
+    {
+        IsSuccess = true,
+        Result = data,
+        Message = default
+    };
 
-    public static IApiResult<T> FromFail<T>(string message)
-        => new ApiResult<T>(false, default, message);
+    public static IApiResult<T> FromFail<T>(string message) => new ApiResult<T>()
+    {
+        IsSuccess = false,
+        Result = default,
+        Message = message
+    };
 
     public static IApiResult<T> FromException<T>(Exception ex)
         => FromFail<T>(ex.Message);

@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GenericApiNetCore.Abstract\GenericApiNetCore.Abstract.csproj" />
+    <ProjectReference Include="..\GenericApiNetCore.Samples.Entities\GenericApiNetCore.Samples.Entities.csproj" />
     <ProjectReference Include="..\GenericApiNetCore.ServerLib\GenericApiNetCore.ServerLib.csproj" />
   </ItemGroup>
 

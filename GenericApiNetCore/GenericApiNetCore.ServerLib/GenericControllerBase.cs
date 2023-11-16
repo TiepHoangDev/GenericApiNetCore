@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,6 @@ using System.Threading.Tasks;
 namespace GenericApiNetCore.ServerLib
 {
     [ApiController]
-    [Route("[controller]")]
     public abstract class GenericControllerBase<T> : ControllerBase, IApiMethods<T>
     {
         private IRepositoryMethods<T> _repositoryMethods;
@@ -18,28 +18,28 @@ namespace GenericApiNetCore.ServerLib
             this._repositoryMethods = repositoryMethods;
         }
 
-        [HttpPost("create")]
-        public Task<IApiResult<List<T>>> CreateAsync(IApiRequest<List<T>, List<T>> entitysRequest)
+        [HttpPost(CreateRequest<T>.UrlTemplate)]
+        public virtual Task<IApiResult<List<T>>> CreateAsync([FromBody] CreateRequest<T> entitysRequest)
         {
-            return ApiResultFactory.FromTryMethodAsync(() => _repositoryMethods.CreateAsync(entitysRequest.Payload));
+            return ApiResultFactory.FromTryMethodAsync(async () => await _repositoryMethods.CreateAsync(entitysRequest.Payload));
         }
 
-        [HttpPost("delete")]
-        public Task<IApiResult<int>> DeleteAsync(IApiRequest<Guid[], int> idsRequest)
+        [HttpPost(DeleteRequest<T>.UrlTemplate), HttpDelete]
+        public virtual Task<IApiResult<int>> DeleteAsync([FromBody] DeleteRequest<T> idsRequest)
         {
-            return ApiResultFactory.FromTryMethodAsync(() => _repositoryMethods.DeleteAsync(idsRequest.Payload));
+            return ApiResultFactory.FromTryMethodAsync(async () => await _repositoryMethods.DeleteAsync(idsRequest.Payload));
         }
 
-        [HttpPost("paging")]
-        public Task<IApiResult<List<T>>> PagingAsync(IApiRequest<int, List<T>> pageRequest)
+        [HttpPost(PagingRequest<T>.UrlTemplate), HttpGet]
+        public virtual Task<IApiResult<List<T>>> PagingAsync([FromBody] PagingRequest<T> pageRequest)
         {
-            return ApiResultFactory.FromTryMethodAsync(() => _repositoryMethods.PagingAsync(pageRequest.Payload));
+            return ApiResultFactory.FromTryMethodAsync(async () => await _repositoryMethods.PagingAsync(pageRequest.Payload));
         }
 
-        [HttpPost("update")]
-        public Task<IApiResult<List<T>>> UpdateAsync(IApiRequest<List<T>, List<T>> entitysRequest)
+        [HttpPost(UpdateRequest<T>.UrlTemplate), HttpPut]
+        public virtual Task<IApiResult<List<T>>> UpdateAsync([FromBody] UpdateRequest<T> entitysRequest)
         {
-            return ApiResultFactory.FromTryMethodAsync(() => _repositoryMethods.UpdateAsync(entitysRequest.Payload));
+            return ApiResultFactory.FromTryMethodAsync(async () => await _repositoryMethods.UpdateAsync(entitysRequest.Payload));
         }
     }
 }
