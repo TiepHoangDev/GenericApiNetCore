@@ -1,6 +1,6 @@
 # GenericApiNetCore
 
-[![NuGet version](https://badge.fury.io/nu/Newtonsoft.Json.svg)](https://badge.fury.io/nu/Newtonsoft.Json)
+[![NuGet version](https://badge.fury.io/nu/GenericApiNetCore.ServerLib.svg)](https://badge.fury.io/nu/GenericApiNetCore.ServerLib)
 [![Build status](https://ci.appveyor.com/api/projects/status/1osk74e23m8om4in?svg=true)](https://ci.appveyor.com/project/TiepHoangDev/genericapinetcore)
 
 ![GenericApiNetCore logo](docs/logo.png "asp net core generic api")
