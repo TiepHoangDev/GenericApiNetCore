@@ -24,3 +24,5 @@ jobs:
       run: dotnet restore .\GenericApiNetCore\
     - name: Build
       run: dotnet build .\GenericApiNetCore\ --no-restore
+    - name: push nuget package
+      run: dotnet nuget push -k ${{NUGET_APIKEY}} .\GenericApiNetCore\nuget\*.nupkg -s https://api.nuget.org/v3/index.json --skip-duplicate

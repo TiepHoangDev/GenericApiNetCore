@@ -4,7 +4,29 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<Title>GenericApiNetCore.ClientLib</Title>
+		<PackageTags>GenericApiNetCore.ClientLib</PackageTags>
+		<RepositoryUrl>https://github.com/TiepHoangDev/GenericApiNetCore</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/TiepHoangDev/GenericApiNetCore</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Copyright>tiephoangdev</Copyright>
+		<PackageIcon>asp net core generic api.png</PackageIcon>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\docs\asp net core generic api.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="dotnet pack -p:PackageVersion=$([System.DateTime]::Now.ToString(&quot;yyyy.MM.dd.HHmm&quot;)) --no-build --configuration $(Configuration) --output &quot;$(SolutionDir)nuget&quot;" />
+	</Target>
 
 	<ItemGroup>
 		<ProjectReference Include="..\GenericApiNetCore.Abstract\GenericApiNetCore.Abstract.csproj" />

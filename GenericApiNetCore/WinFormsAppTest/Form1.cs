@@ -1,7 +1,5 @@
 using GenericApiNetCore.ClientLib;
 using GenericApiNetCore.Samples.Entities;
-using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace WinFormsAppTest
 {
